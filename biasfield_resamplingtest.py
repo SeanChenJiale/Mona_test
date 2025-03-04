@@ -8,7 +8,7 @@ Created on Mon Mar  3 09:41:05 2025
 import SimpleITK as sitk
 
 # Load the NIfTI image
-input_image = sitk.ReadImage("C:/Sean/PhD/Dataset/IXI/IXI002-Guys-0828-T1.nii.gz")
+input_image = sitk.ReadImage("./Dataset/IXI/IXI002-Guys-0828-T1.nii.gz")
 
 # Convert to a float type for better correctionko
 input_image = sitk.Cast(input_image, sitk.sitkFloat32)
@@ -18,14 +18,14 @@ bias_corrector = sitk.N4BiasFieldCorrectionImageFilter()
 corrected_image = bias_corrector.Execute(input_image)
 
 # Save the corrected image
-sitk.WriteImage(corrected_image, "C:/Sean/PhD/Dataset/trial_IXI002-Guys-0828-T1_N4.nii.gz")
+sitk.WriteImage(corrected_image, "./Dataset/trial_IXI002-Guys-0828-T1_N4.nii.gz")
 
 print("N4 bias field correction applied successfully!")
 #%%  resampling test
 import SimpleITK as sitk
 
 # Load the original NIfTI image
-input_image = sitk.ReadImage("C:/Sean/PhD/Dataset/trial_IXI002-Guys-0828-T1_N4.nii.gz")
+input_image = sitk.ReadImage("./Dataset/trial_IXI002-Guys-0828-T1_N4.nii.gz")
 
 # Get original spacing and size
 original_spacing = input_image.GetSpacing()  # (dx, dy, dz)
@@ -57,7 +57,7 @@ resampled_image = sitk.Resample(
 )
 
 # Save the resampled image
-sitk.WriteImage(resampled_image, "C:/Sean/PhD/Dataset/trial_resample_IXI002-Guys-0828-T1_N4.nii.gz")
+sitk.WriteImage(resampled_image, "./Dataset/trial_resample_IXI002-Guys-0828-T1_N4.nii.gz")
 
 print("Resampling to 1x1x1 mm isotropic voxels complete!")
 
@@ -65,8 +65,8 @@ print("Resampling to 1x1x1 mm isotropic voxels complete!")
 import SimpleITK as sitk
 
 # Load images
-fixed_image = sitk.ReadImage("C:/Sean/PhD/Dataset/MNI/MNI152_T1_1mm.nii.gz")  # MNI template
-moving_image = sitk.ReadImage("C:/Sean/PhD/Dataset/trial_resample_IXI002-Guys-0828-T1_N4.nii.gz")  # Your T1 MRI
+fixed_image = sitk.ReadImage("./Dataset/MNI/MNI152_T1_1mm.nii.gz")  # MNI template
+moving_image = sitk.ReadImage("./Dataset/trial_resample_IXI002-Guys-0828-T1_N4.nii.gz")  # Your T1 MRI
 
 #  Convert images to float32
 fixed_image = sitk.Cast(fixed_image, sitk.sitkFloat32)
@@ -89,7 +89,7 @@ final_transform = registration_method.Execute(sitk.Cast(fixed_image, sitk.sitkFl
 moving_resampled = sitk.Resample(moving_image, fixed_image, final_transform, sitk.sitkLinear, 0.0, moving_image.GetPixelID())
 
 # Save the registered image
-sitk.WriteImage(moving_resampled, "C:/Sean/PhD/Dataset/trial_input/rigid_IXI002-Guys-0828-T1_MNI152.nii.gz")
+sitk.WriteImage(moving_resampled, "./Dataset/trial_input/rigid_IXI002-Guys-0828-T1_MNI152.nii.gz")
 
 print("Rigid registration to MNI152 completed!")
 
