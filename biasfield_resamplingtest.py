@@ -113,5 +113,5 @@ print("Rigid registration to MNI152 completed!")
 #%% HD-Bet
 
 import os
-os.system("cd C:/Sean/PhD/Dataset")
+os.system("cd ./Dataset")
 os.system("hd-bet -i ./trial_input -o ./trial_output_hdbet -device cpu --disable_tta")
