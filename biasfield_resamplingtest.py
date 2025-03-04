@@ -63,6 +63,7 @@ print("Resampling to 1x1x1 mm isotropic voxels complete!")
 
 #%% Rigid registration https://discourse.itk.org/t/3d-mri-image-registration/3144
 import SimpleITK as sitk
+import os
 
 # Load images
 fixed_image = sitk.ReadImage("./Dataset/MNI/MNI152_T1_1mm.nii.gz")  # MNI template
@@ -87,6 +88,22 @@ registration_method.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
 registration_method.SetInitialTransform(initial_transform, inPlace=False)
 final_transform = registration_method.Execute(sitk.Cast(fixed_image, sitk.sitkFloat32), sitk.Cast(moving_image, sitk.sitkFloat32))
 moving_resampled = sitk.Resample(moving_image, fixed_image, final_transform, sitk.sitkLinear, 0.0, moving_image.GetPixelID())
+
+# Specify path
+path = './Dataset/trial_input'
+
+# Check whether the specified path exists or not
+isExist = os.path.exists(path)
+if not isExist:
+    os.mkdir('./Dataset/trial_input')
+    
+# Specify path
+path = './Dataset/trial_output_hdbet'
+
+# Check whether the specified path exists or not
+isExist = os.path.exists(path)
+if not isExist:
+    os.mkdir('./Dataset/trial_output')
 
 # Save the registered image
 sitk.WriteImage(moving_resampled, "./Dataset/trial_input/rigid_IXI002-Guys-0828-T1_MNI152.nii.gz")
