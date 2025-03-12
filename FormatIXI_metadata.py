@@ -1,16 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb 26 14:13:06 2025
-
-@author: ruina
-"""
 
 import glob
 import pandas as pd
 
 print('\nNamed with wildcard *:')
 
-IXI = glob.glob('./Dataset/**/*.nii.gz')
+IXI = glob.glob('./Dataset/**/*.nii.gz') ## change to the file of the pre-processed images
 for name in IXI:
     print(name)
     

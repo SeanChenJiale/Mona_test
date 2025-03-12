@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 27 09:44:43 2025
-
-@author: ruina
-"""
-
 #%% load required packages
 
 import os

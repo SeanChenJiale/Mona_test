@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar  3 09:41:05 2025
-
-@author: ruina
-"""
 #%% bias field test
 import SimpleITK as sitk
 
@@ -90,15 +84,15 @@ final_transform = registration_method.Execute(sitk.Cast(fixed_image, sitk.sitkFl
 moving_resampled = sitk.Resample(moving_image, fixed_image, final_transform, sitk.sitkLinear, 0.0, moving_image.GetPixelID())
 
 # Specify path
-path = './Dataset/trial_input'
+path = './PreProcessedData/trial_input'
 
 # Check whether the specified path exists or not
 isExist = os.path.exists(path)
 if not isExist:
-    os.mkdir('./Dataset/trial_input')
+    os.mkdir('./PreProcessedData/trial_input')
     
 # Specify path
-path = './Dataset/trial_output_hdbet'
+path = './PreProcessedData/trial_output_hdbet'
 
 # Check whether the specified path exists or not
 isExist = os.path.exists(path)
